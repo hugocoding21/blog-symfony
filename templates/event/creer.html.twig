@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Créer un événement - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <div class="flex m-auto w-2/4 gap-y-10">
+    {{ form_start(form) }}
+
+    <div class="grid grid-cols-2 gap-4">
+      {{ form_row(form.startAt, { attr: { class: 'input' } }) }}
+      {{ form_row(form.endAt, { attr: { class: 'input' } }) }}
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-10">
+      {{ form_row(form.name, { attr: { class: 'input' } }) }}
+      {{ form_row(form.place, { attr: { class: 'input' } }) }}
+      {{ form_row(form.price, { attr: { class: 'input' } }) }}
+      {{
+        form_row(
+          form.posterFile,
+          {
+            attr: {
+              class: 'text-white w-full p-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 custom-file-input'
+            }
+          }
+        )
+      }}
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mt-10 m-auto">
+      {{ form_label(form.categories) }}
+      <div></div>
+      {% for category in form.categories %}
+        <div class="flex items-center">
+          <div class="w-1/3">
+            {{ form_label(category) }}
+          </div>
+          <div class="w-2/3">
+            {{
+              form_widget(
+                category,
+                {
+                  attr: {
+                    class: 'w-auto p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                  }
+                }
+              )
+            }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="text-right mt-4">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Ajouter
+      </button>
+    </div>
+
+    {{ form_end(form) }}
+  </div>
+
+  <style>
+    .custom-file-input::file-selector-button { color: black; }
+  </style>
+{% endblock %}

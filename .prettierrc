@@ -1,0 +1,8 @@
+{
+  "twigAlwaysBreakObjects": false,
+  "plugins": [
+    "@prettier/plugin-php",
+    "@zackad/prettier-plugin-twig",
+    "prettier-plugin-tailwindcss"
+  ]
+}

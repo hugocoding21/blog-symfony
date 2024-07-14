@@ -1,57 +1,71 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}
-				Blogy
-			{% endblock %}
-		</title>
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-			<link rel="stylesheet" href="/build/app.css">
-		{% endblock %}
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-			<script src="/build/runtime.js" defer></script>
-			<script src="/build/app.js" defer></script>
-		{% endblock %}
-	</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      {% block title %}
+        Event Time
+      {% endblock %}
+    </title>
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+      <link rel="stylesheet" href="/build/app.css" />
+    {% endblock %}
+    {% block javascripts %}
+      {{ encore_entry_script_tags('app') }}
+      <script src="/build/runtime.js" defer></script>
+      <script src="/build/app.js" defer></script>
+    {% endblock %}
+  </head>
 
-	<body>
-		<nav class="flex justify-between items-center h-[10vh] mx-10 mb-22">
-			<ul class="flex gap-10">
-				<li>
-					<a href="{{path('app_event')}}" aria-current="page">Accueil
-					</a>
-				</li>
-				<li>
-					<a class="nav-link" href="{{path('app_eventList')}}">Événement</a>
-				</li>
-				<li>
-					<a class="nav-link" href="{{path('app_category')}}">Catégories</a>
-				</li>
-				<li>
-					<a class="nav-link" href="{{path('app_contact')}}">Contact</a>
-				</li>
-			</ul>
-			<form class="relative block" method="get" action="{{path('app_eventList')}}">
-				<div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-					<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 20 20">
-						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-					</svg>
-				</div>
-				<input class="outline-none block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" type="text" name="search" placeholder="Rechercher..." value='{{app.request.get('search')}}'>
-			</form>
-		</nav>
+  <body>
+    <nav class="flex justify-between items-center h-[10vh] mx-10 mb-22">
+      <ul class="flex gap-10">
+        <li>
+          <a href="{{ path('app_event') }}" aria-current="page">Accueil</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{ path('app_eventList') }}">Événement</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{ path('app_category') }}">Catégories</a>
+        </li>
+        <li>
+          <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
+        </li>
+      </ul>
+      <form class="relative block"
+        method="get"
+        action="{{ path('app_eventList') }}">
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewbox="0 0 20 20">
+            <path stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+          </svg>
+        </div>
+        <input class="outline-none block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          type="text"
+          name="search"
+          placeholder="Rechercher..."
+          value="{{ app.request.get('search') }}" />
+      </form>
+    </nav>
 
-		{% block body %}{% endblock %}
+    {% block body %}
 
+    {% endblock %}
 
-		<footer class="bottom-0 h-[5vh] w-screen flex items-center justify-center m-auto">
-			&copy; Copyright
-			{{'now'|date('Y')}}
-			- Event Time
-		</footer>
-	</body>
+    <footer class="bottom-0 h-[5vh] w-screen flex items-center justify-center m-auto">
+      &copy; Copyright
+      {{ 'now'|date('Y') }}
+      - Event Time
+    </footer>
+  </body>
 </html>

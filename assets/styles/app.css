@@ -6,3 +6,26 @@ body {
   background-color: rgb(7, 38, 50);
   color: rgb(255, 250, 244);
 }
+
+.label {
+  @apply my-2 w-fit rounded-lg px-2 py-2 text-xs font-semibold uppercase;
+}
+
+.link-gray {
+  @apply mr-2 rounded bg-gray-500 px-4 py-2 font-bold text-white hover:bg-gray-700;
+}
+
+.link-blue {
+  @apply mr-2 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700;
+}
+.link-green {
+  @apply mr-2 rounded bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700;
+}
+
+.link-orange {
+  @apply mr-2 rounded bg-orange-500 px-4 py-2 font-bold text-white hover:bg-orange-700;
+}
+
+.input {
+  @apply w-full rounded-md border border-gray-300 p-2 text-black shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500;
+}

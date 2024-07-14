@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  - Accueil
+{% endblock %}
+
+{% block body %}
+  <div class="flex flex-col items-center">
+    <div class="flex w-4/5 justify-center leading-8">
+      <p>
+        Bienvenue dans notre monde numérique où chaque clic ouvre une nouvelle
+        porte vers l'inspiration, la découverte et le partage. Ce blog est votre
+        espace dédié à l'exploration des idées, des passions et des réflexions
+        qui façonnent notre quotidien. Que vous soyez ici pour vous informer,
+        pour vous divertir ou pour approfondir votre savoir, vous trouverez ici
+        une communauté vibrante et des contenus captivants qui nourrissent la
+        curiosité et stimulent la réflexion. Préparez-vous à plonger dans un
+        univers où chaque article raconte une histoire, chaque image évoque une
+        émotion, et où chaque visite enrichit votre expérience. Bienvenue sur
+        notre blog, où l'aventure commence à chaque page.
+      </p>
+    </div>
+    <div class="flex justify-center gap-2 max-w-lg m-auto">
+      <img src="{{ asset('images/1.jpg') }}" />
+      <img src="{{ asset('images/2.jpg') }}" />
+    </div>
+  </div>
+{% endblock %}

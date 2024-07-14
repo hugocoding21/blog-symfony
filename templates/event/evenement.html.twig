@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="container mx-auto mb-10">
+    <a class="btn btn-primary bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-auto block text-center w-48"
+      href="{{ path('event_create') }}">
+      Créer un événement
+    </a>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+      {% for event in pagination %}
+        <div class="max-w-[26rem] border border-gray-200 rounded-lg shadow bg-slate-300 p-3 h-fit">
+          <a href="{{ path('app_eventId', { id: event.id }) }}">
+            {% if event.poster %}
+              <img class="w-full h-60"
+                src="{{ asset('/build/images/events/' ~ event.poster) }}"
+                alt="{{ event.name }}" />
+            {% endif %}
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">
+                <h2 class="text-black">
+                  {{ event.name }}
+                </h2>
+              </div>
+              <p>
+                {{ 'Du ' ~ event.startAt.format('d/m/Y à H\\hi') ~ ' au '
+                  ~ event.endAt.format('d/m/Y à H\\hi') }}
+              </p>
+
+              {% if event.startAt <= date() and event.endAt > date() %}
+                <p class="bg-yellow-200 text-yellow-800 label">
+                  En cours
+                </p>
+              {% elseif event.endAt < date() %}
+                <p class="bg-red-200 text-red-800 label">
+                  Passé
+                </p>
+              {% else %}
+                <p class="bg-green-200 text-green-800 label">
+                  Futur
+                </p>
+              {% endif %}
+
+              {% if event.price != 'Gratuit' %}
+                <p class="block text-black mt-2">
+                  {{ event.price|format_currency('EUR', locale = 'fr') }}
+                </p>
+              {% else %}
+                <p class="block text-black mt-2">
+                  {{ event.price }}
+                </p>
+              {% endif %}
+              {% if event.place %}
+                <span class="block text-black mt-2">
+                  {{ event.place.city }}
+                </span>
+              {% endif %}
+              <div class="mt-4 space-x-2 text-center">
+                <a class="btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  href="{{ path('event_edit', { id: event.id }) }}">
+                  Modifier
+                </a>
+                <form class="inline-block"
+                  action="{{ path('event_delete', { id: event.id }) }}">
+                  <input type="hidden"
+                    name="token"
+                    value="{{ csrf_token('delete-' ~ event.id) }}" />
+                  <button class="btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    type="submit">
+                    Supprimer
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% else %}
+        <p class="text-center w-screen">
+          Aucun événement trouvé.
+        </p>
+      {% endfor %}
+    </div>
+    <div class="flex justify-between m-auto mt-10">
+      <div>
+        Total d'articles : {{ pagination.getTotalItemCount }}
+      </div>
+      <div class="flex gap-6">
+        {{ knp_pagination_render(pagination) }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

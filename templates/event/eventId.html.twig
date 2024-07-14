@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ event.name }}
+  -
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <style>
+    img { width: 40vw; }
+  </style>
+
+  <h1 class="text-center m-3">
+    Bienvenue sur l'event
+    {{ event.name }}
+  </h1>
+
+  {% if event.poster %}
+    <img class="m-auto mb-3"
+      src="{{ asset('/build/images/events/' ~ event.poster) }}"
+      alt="{{ event.name }}" />
+  {% endif %}
+  <p class="w-75 m-auto text-center">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident ad
+    blanditiis dolores? Officiis odio iste quam libero expedita, amet deleniti
+    impedit, ipsum dolor quos laudantium voluptatem veniam id et. Consequuntur
+    sed blanditiis architecto reiciendis commodi, eaque deleniti iusto possimus
+    incidunt, molestiae accusantium. Iure, exercitationem blanditiis fugiat
+    culpa iusto minima unde, optio harum repellendus temporibus esse facere
+    ipsum ipsam! Voluptatum recusandae placeat eligendi id voluptate cumque vero
+    nisi repellat sunt, incidunt, aliquam eum architecto nulla aut ipsa, harum
+    quasi! Voluptates ad neque, ut cumque nam quam explicabo quasi aliquid,
+    asperiores, sed quisquam voluptas deleniti omnis. Eligendi reprehenderit
+    quod asperiores nobis rerum ratione ducimus consequuntur voluptate pariatur
+    natus aliquam magni vitae sequi sapiente aspernatur dolore corrupti quia,
+    fugit atque dignissimos ipsa eius aliquid praesentium! Praesentium suscipit
+    quibusdam odio obcaecati itaque velit facere vel nam temporibus ducimus sed,
+    magnam quas minima, veritatis consectetur odit corporis illo. Rem, ab?
+    Temporibus, adipisci soluta! Dolor est unde harum accusantium nihil,
+    temporibus veritatis ullam vitae mollitia, maiores doloremque alias
+    aspernatur quod, obcaecati similique voluptatum quibusdam. Dolores rem
+    facere quibusdam nesciunt! Eos aliquam magni corporis porro maxime
+    recusandae, sunt perferendis commodi nulla facilis accusantium veritatis,
+    necessitatibus, iure saepe! Dolore hic iste, error sit itaque porro
+    similique repellat ea.
+  </p>
+{% endblock %}

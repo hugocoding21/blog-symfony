@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ parent() }} - Contactez-nous !
+{% endblock %}
+
+{% block body %}
+  <h1>
+    Contactez-nous
+  </h1>
+
+  {{ form_start(form) }}
+  {{ form_row(form.name, { attr: { class: 'input' } }) }}
+  {{ form_row(form.subject, { attr: { class: 'input' } }) }}
+  {{ form_row(form.message, { attr: { class: 'input' } }) }}
+
+  {{ form_widget(form) }}
+
+  <button class="bg-green-600 text-white px-4 py-2 rounded-lg mt-4">
+    Validez
+  </button>
+
+  {{ form_end(form) }}
+{% endblock %}

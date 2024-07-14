@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Categories
+{% endblock %}
+
+{% block body %}
+  <div class="container mx-auto my-8">
+    <h1 class="text-3xl font-bold mb-4">
+      Categories
+    </h1>
+    <a href="{{ path('category_new') }}" class="link-blue">
+      Creer une Categorie
+    </a>
+
+    <ul class="flex flex-wrap p-10">
+      {% for category in categories %}
+        <li class="h-10">
+          {{ category.name }}
+          <a href="{{ path('category_edit', { id: category.id }) }}"
+            class="link-orange">
+            Modifier
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <div class="flex justify-start mb-4">
+      <a href="{{ path('app_category') }}"
+        class="tablink link-blue {{
+        selectedCategory is null
+          ? 'bg-blue-700'
+          : ''
+        }}">
+        All
+      </a>
+      {% for category in categories %}
+        <a href="{{ path('app_category', { category: category.name }) }}"
+          class="tablink link-blue {{
+          selectedCategory == category.name
+            ? 'bg-blue-700'
+            : ''
+          }}">
+          {{ category.name }}
+        </a>
+      {% endfor %}
+    </div>
+    <div class="flex justify-start mb-4">
+      <a href="{{ path('app_category', { category: selectedCategory }) }}"
+        class="filterlink link-gray {{
+        selectedFilter is null
+          ? 'bg-gray-700'
+          : ''
+        }}">
+        All
+      </a>
+      <a href="{{
+        path(
+          'app_category',
+          { category: selectedCategory, filter: 'past' }
+        )
+        }}"
+        class="filterlink link-gray {{
+        selectedFilter == 'past'
+          ? 'bg-gray-700'
+          : ''
+        }}">
+        Passé
+      </a>
+      <a href="{{
+        path(
+          'app_category',
+          { category: selectedCategory, filter: 'current' }
+        )
+        }}"
+        class="filterlink link-gray {{
+        selectedFilter == 'current'
+          ? 'bg-gray-700'
+          : ''
+        }}">
+        En cours
+      </a>
+      <a href="{{
+        path(
+          'app_category',
+          { category: selectedCategory, filter: 'future' }
+        )
+        }}"
+        class="filterlink link-gray {{
+        selectedFilter == 'future'
+          ? 'bg-gray-700'
+          : ''
+        }}">
+        Futur
+      </a>
+    </div>
+
+    <div class="flex flex-wrap justify-between">
+      {% for event in events %}
+        <div class="max-w-sm border mr-3 border-gray-200 rounded-lg shadow bg-slate-300 p-3 h-fit">
+          <a href="{{ path('app_eventId', { id: event.id }) }}">
+            {% if event.poster %}
+              <img class="w-full h-60"
+                src="{{ asset('/build/images/events/' ~ event.poster) }}"
+                alt="{{ event.name }}" />
+            {% endif %}
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">
+                <h2 class="text-black">
+                  {{ event.name }}
+                </h2>
+              </div>
+              <p>
+                {{ 'Du ' ~ event.startAt.format('d/m/Y à H\\hi') ~ ' au '
+                  ~ event.endAt.format('d/m/Y à H\\hi') }}
+              </p>
+
+              {% if event.startAt <= date() and event.endAt > date() %}
+                <p class="bg-yellow-200 text-yellow-800 label">
+                  En cours
+                </p>
+              {% elseif event.endAt < date() %}
+                <p class="bg-red-200 text-red-800 label">
+                  Passé
+                </p>
+              {% else %}
+                <p class="bg-green-200 text-green-800 label">
+                  Futur
+                </p>
+              {% endif %}
+
+              {% if event.price != 'Gratuit' %}
+                <p class="block text-black mt-2">
+                  {{ event.price|format_currency('EUR', locale = 'fr') }}
+                </p>
+              {% else %}
+                <p class="block text-black mt-2">
+                  {{ event.price }}
+                </p>
+              {% endif %}
+              {% if event.place %}
+                <span class="block text-black mt-2">
+                  {{ event.place.city }}
+                </span>
+              {% endif %}
+              <div class="mt-4 space-x-2 text-center">
+                <a class="btn bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  href="{{ path('event_edit', { id: event.id }) }}">
+                  Modifier
+                </a>
+                <form class="inline-block"
+                  action="{{ path('event_delete', { id: event.id }) }}">
+                  <input type="hidden"
+                    name="token"
+                    value="{{ csrf_token('delete-' ~ event.id) }}" />
+                  <button class="btn bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                    type="submit">
+                    Supprimer
+                  </button>
+                </form>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% else %}
+        <p class="text-center w-full">
+          Aucun événement trouvé.
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
